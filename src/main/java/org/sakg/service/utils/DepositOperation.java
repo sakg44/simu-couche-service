@@ -23,16 +23,17 @@ public class DepositOperation implements IOperationService {
 
     @Override
     public void execute() throws DepositOperationEception {
-        if (isAmountValid())
-            depositAmount();
-        else
-            throw new DepositOperationEception(getMessageExceptionForWrongValueDeposit());
+        depositAmount();
+
 
     }
 
-    private void depositAmount() {
-        updateBalance();
-        historyService.logOperation(OperationEnum.DEPOSIT, amount, account);
+    private void depositAmount() throws DepositOperationEception {
+        if (isAmountValid()) {
+            updateBalance();
+            historyService.logOperation(OperationEnum.DEPOSIT, amount, account);
+        } else
+            throw new DepositOperationEception(getMessageExceptionForWrongValueDeposit());
     }
 
     private void updateBalance() {
@@ -40,7 +41,7 @@ public class DepositOperation implements IOperationService {
     }
 
     private boolean isAmountValid() {
-        return amount >= 0;
+        return amount > 0;
     }
 
     private String getMessageExceptionForWrongValueDeposit() {

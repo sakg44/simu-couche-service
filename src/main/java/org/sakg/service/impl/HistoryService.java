@@ -7,9 +7,11 @@ import org.sakg.service.IHistoryService;
 import org.sakg.utils.BankMessage;
 
 import java.time.OffsetDateTime;
+import java.util.logging.Logger;
 
 public class HistoryService implements IHistoryService {
 
+    private static Logger logger = Logger.getLogger(HistoryService.class.getSimpleName());
     private static HistoryService historyService;
 
     private HistoryService() {
@@ -40,9 +42,11 @@ public class HistoryService implements IHistoryService {
     }
 
     public void showHistory(Account account) {
-        if (hasHistory(account))
-            System.out.println(BankMessage.EMPTY_HISTORY_MESSAGE);
-        System.out.println(account.getHistories());
+        if (hasHistory(account)) {
+            logger.info(BankMessage.EMPTY_HISTORY_MESSAGE);
+        }
+        logger.info(account.getHistories().toString());
+
     }
 
 }

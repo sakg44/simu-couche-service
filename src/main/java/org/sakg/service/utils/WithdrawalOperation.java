@@ -22,15 +22,27 @@ public class WithdrawalOperation implements IOperationService {
 
     @Override
     public void execute() throws WithdrawalException {
-        if (isPossibleToWithdrawal())
-            withDrawalAmount();
-        else
-            throw new WithdrawalException(getMessageExceptionForNotEnoughFund());
+        withDrawalAmount();
+
     }
 
-    private void withDrawalAmount() {
-        account.setBalance(account.getBalance() - amount);
-        historyService.logOperation(OperationEnum.WITHDRAWAL, amount, account);
+    private void checkAmountToWithrawal() throws WithdrawalException {
+        if (!isAmountValid())
+            throw new WithdrawalException(getMessageForInvalideAmount());
+    }
+
+    private String getMessageForInvalideAmount() {
+        return MessageFormat.format(BankMessage.WITHDRAWAL_VALUE_LESS_OR_EQUAL_ZERO_MESSAGE, String.valueOf(amount));
+
+    }
+
+    private void withDrawalAmount() throws WithdrawalException {
+        checkAmountToWithrawal();
+        if (isPossibleToWithdrawal()) {
+            account.setBalance(account.getBalance() - amount);
+            historyService.logOperation(OperationEnum.WITHDRAWAL, amount, account);
+        } else
+            throw new WithdrawalException(getMessageExceptionForNotEnoughFund());
     }
 
     private String getMessageExceptionForNotEnoughFund() {
@@ -39,5 +51,9 @@ public class WithdrawalOperation implements IOperationService {
 
     private boolean isPossibleToWithdrawal() {
         return account.getBalance() >= amount;
+    }
+
+    private boolean isAmountValid() {
+        return amount > 0;
     }
 }
