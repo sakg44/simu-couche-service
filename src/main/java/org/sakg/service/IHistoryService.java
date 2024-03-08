@@ -1,11 +1,11 @@
 package org.sakg.service;
 
+import org.sakg.exception.HistoryServiceExeception;
 import org.sakg.model.Account;
-import org.sakg.model.History;
-import org.sakg.model.OperationEnum;
+import org.sakg.model.Operation;
 
 public interface IHistoryService {
-    void logOperation(OperationEnum operation, double amount, Account account);
+    void saveOperationAsHistory(Operation operation);
 
-    void addHistory(Account account, History history);
+    void showHistory(Account account) throws HistoryServiceExeception;
 }

@@ -1,7 +1,7 @@
 package org.sakg.service;
 
-import org.sakg.exception.BankException;
+import org.sakg.exception.BankServiceException;
 
 public interface IBankService {
-    void doTransaction(IOperationService operationService) throws BankException;
+    void doTransaction(IOperation operationService) throws BankServiceException;
 }

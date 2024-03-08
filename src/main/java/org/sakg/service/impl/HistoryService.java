@@ -1,10 +1,12 @@
 package org.sakg.service.impl;
 
+import org.sakg.exception.EmptyHistoryException;
+import org.sakg.exception.HistoryServiceExeception;
 import org.sakg.model.Account;
 import org.sakg.model.History;
+import org.sakg.model.Operation;
 import org.sakg.model.OperationEnum;
 import org.sakg.service.IHistoryService;
-import org.sakg.utils.BankMessage;
 
 import java.time.OffsetDateTime;
 import java.util.logging.Logger;
@@ -28,22 +30,23 @@ public class HistoryService implements IHistoryService {
         return account.getHistories().isEmpty();
     }
 
-    public void logOperation(OperationEnum operation, double amount, Account account) {
-        History history = createHistory(operation, OffsetDateTime.now(), amount, account.getBalance());
-        addHistory(account, history);
+    public void saveOperationAsHistory(Operation operation) {
+        History history = createHistory(operation.getOperationType(), operation.getDate(), operation.getAmount(), operation.getAccount().getBalance());
+        addHistory(operation.getAccount(), history);
     }
 
     private History createHistory(OperationEnum operation, OffsetDateTime date, double amount, double balance) {
         return new History(operation, date, amount, balance);
     }
 
-    public void addHistory(Account account, History history) {
+    private void addHistory(Account account, History history) {
         account.getHistories().add(history);
     }
 
-    public void showHistory(Account account) {
+    @Override
+    public void showHistory(Account account) throws HistoryServiceExeception {
         if (hasHistory(account)) {
-            logger.info(BankMessage.EMPTY_HISTORY_MESSAGE);
+            throw new EmptyHistoryException();
         }
         logger.info(account.getHistories().toString());
 

@@ -1,8 +1,8 @@
 package org.sakg.service.impl;
 
-import org.sakg.exception.BankException;
+import org.sakg.exception.BankServiceException;
 import org.sakg.service.IBankService;
-import org.sakg.service.IOperationService;
+import org.sakg.service.IOperation;
 
 public class BankService implements IBankService {
     private static BankService bankAccountService;
@@ -15,7 +15,7 @@ public class BankService implements IBankService {
     }
 
     @Override
-    public void doTransaction(IOperationService operation) throws BankException {
+    public void doTransaction(IOperation operation) throws BankServiceException {
          operation.execute();
     }
 

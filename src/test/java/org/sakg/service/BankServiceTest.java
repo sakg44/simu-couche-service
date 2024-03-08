@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.sakg.exception.BankException;
+import org.sakg.exception.BankServiceException;
 import org.sakg.exception.DepositOperationEception;
 import org.sakg.exception.WithdrawalException;
 import org.sakg.model.Account;
@@ -33,7 +33,7 @@ class BankServiceTest {
 
     @Test
     @DisplayName("Should deposit money to account")
-    void shouldDepositMoneyToAccount() throws BankException {
+    void shouldDepositMoneyToAccount() throws BankServiceException {
         //Given
         int amount = 10;
         DepositOperation depositOperation = new DepositOperation(myAccount, amount, historyService);
@@ -71,7 +71,7 @@ class BankServiceTest {
 
     @Test
     @DisplayName("Should withdrawal money from account.")
-    void should_withdrawal_money_from_account() throws BankException {
+    void should_withdrawal_money_from_account() throws BankServiceException {
         //Given
         double defaultBalance = 50.0;
         int amountToWithdrawal = 10;
