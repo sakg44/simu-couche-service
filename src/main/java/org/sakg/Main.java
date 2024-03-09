@@ -11,13 +11,16 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         Account sakgAccount = new Account();
-        DepositOperationCommand operation = new DepositOperationCommand(sakgAccount, 10, HistoryService.getInstance());
-        WithdrawalOperationCommand withdrawalOperation = new WithdrawalOperationCommand(sakgAccount, 10, HistoryService.getInstance());
-        HistoryService.getInstance().showHistory(sakgAccount);
 
-        BankService.getInstance().doTransaction(operation);
+        // ***** Operation *********
+        DepositOperationCommand depositOperation = new DepositOperationCommand(sakgAccount, 10, HistoryService.getInstance());
+        WithdrawalOperationCommand withdrawalOperation = new WithdrawalOperationCommand(sakgAccount, 10, HistoryService.getInstance());
+
+        //******  Do transaction ********
+        BankService.getInstance().doTransaction(depositOperation);
         BankService.getInstance().doTransaction(withdrawalOperation);
 
+        //****** Show State
         HistoryService.getInstance().showHistory(sakgAccount);
     }
 }
