@@ -2,6 +2,7 @@ package org.sakg.model;
 
 import java.time.OffsetDateTime;
 
-public record History(OperationEnum operation, OffsetDateTime date, double amount, double balance) {
+public record History(OperationEnum operationType, OffsetDateTime date, double amount, double balance) {
     
 }
+

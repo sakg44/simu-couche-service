@@ -1,28 +1,28 @@
-package org.sakg.service.utils;
+package org.sakg.command;
 
+import org.sakg.exception.HistoryServiceExeception;
 import org.sakg.exception.WithdrawalException;
 import org.sakg.model.Account;
 import org.sakg.model.Operation;
 import org.sakg.model.OperationEnum;
 import org.sakg.service.IHistoryService;
-import org.sakg.service.IOperation;
 import org.sakg.utils.BankMessage;
 
 import java.text.MessageFormat;
 import java.time.OffsetDateTime;
 
-public class WithdrawalOperation implements IOperation {
+public class WithdrawalOperationCommand implements IOperationCommand {
     private final IHistoryService historyService;
     private Operation operation;
 
-    public WithdrawalOperation(Account account, double amount, IHistoryService historyService) {
+    public WithdrawalOperationCommand(Account account, double amount, IHistoryService historyService) {
 
         this.historyService = historyService;
         this.operation=new Operation(account,amount,OperationEnum.WITHDRAWAL,OffsetDateTime.now());
     }
 
     @Override
-    public void execute() throws WithdrawalException {
+    public void execute() throws WithdrawalException, HistoryServiceExeception {
         withDrawalAmount();
 
     }
@@ -37,7 +37,7 @@ public class WithdrawalOperation implements IOperation {
 
     }
 
-    private void withDrawalAmount() throws WithdrawalException {
+    private void withDrawalAmount() throws WithdrawalException, HistoryServiceExeception {
         checkAmountToWithrawal();
         if (isPossibleToWithdrawal()) {
             operation.getAccount().setBalance(operation.getAccount().getBalance() - operation.getAmount());

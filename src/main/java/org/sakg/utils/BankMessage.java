@@ -3,6 +3,8 @@ package org.sakg.utils;
 public class BankMessage {
 
 
+    public static final String CANT_SAVE_NULL_OPERATION_AS_HISTORY = "Operation objet is null" ;
+
     private BankMessage(){
         throw new IllegalCallerException("CONSTRUCTOR SHOULD NOT BE CALL");
     }

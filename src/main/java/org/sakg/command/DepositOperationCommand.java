@@ -1,30 +1,30 @@
-package org.sakg.service.utils;
+package org.sakg.command;
 
 import org.sakg.exception.DepositOperationEception;
+import org.sakg.exception.HistoryServiceExeception;
 import org.sakg.model.Account;
 import org.sakg.model.Operation;
 import org.sakg.model.OperationEnum;
 import org.sakg.service.IHistoryService;
-import org.sakg.service.IOperation;
 import org.sakg.utils.BankMessage;
 
 import java.text.MessageFormat;
 import java.time.OffsetDateTime;
 
 
-public class DepositOperation implements IOperation {
+public class DepositOperationCommand implements IOperationCommand {
     private IHistoryService historyService;
     private Operation operation;
 
 
-    public DepositOperation(Account account, double amount, IHistoryService historyService) {
+    public DepositOperationCommand(Account account, double amount, IHistoryService historyService) {
 
         this.historyService = historyService;
         this.operation=new Operation(account,amount,OperationEnum.DEPOSIT,OffsetDateTime.now());
     }
 
     @Override
-    public void execute() throws DepositOperationEception {
+    public void execute() throws DepositOperationEception, HistoryServiceExeception {
         depositAmount();
 
 
@@ -32,7 +32,7 @@ public class DepositOperation implements IOperation {
 
 
 
-    private void depositAmount() throws DepositOperationEception {
+    private void depositAmount() throws DepositOperationEception, HistoryServiceExeception {
         if (isAmountValid()) {
             updateBalance();
             historyService.saveOperationAsHistory(operation);

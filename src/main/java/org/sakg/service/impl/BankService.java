@@ -1,8 +1,9 @@
 package org.sakg.service.impl;
 
 import org.sakg.exception.BankServiceException;
+import org.sakg.exception.HistoryServiceExeception;
 import org.sakg.service.IBankService;
-import org.sakg.service.IOperation;
+import org.sakg.command.IOperationCommand;
 
 public class BankService implements IBankService {
     private static BankService bankAccountService;
@@ -15,7 +16,7 @@ public class BankService implements IBankService {
     }
 
     @Override
-    public void doTransaction(IOperation operation) throws BankServiceException {
+    public void doTransaction(IOperationCommand operation) throws BankServiceException, HistoryServiceExeception {
          operation.execute();
     }
 
