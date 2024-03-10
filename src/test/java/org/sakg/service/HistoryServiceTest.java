@@ -41,7 +41,7 @@ class HistoryServiceTest {
         History history = new History(OperationEnum.DEPOSIT, date, amout, balance);
         myAccount.setHistories(List.of(history));
         //When && Then
-        Assertions.assertDoesNotThrow(() -> historyService.showHistory(myAccount));
+        Assertions.assertDoesNotThrow(() -> historyService.showAllHistory(myAccount));
     }
 
     @Test
@@ -49,7 +49,7 @@ class HistoryServiceTest {
     void shouldThrowEmptyHistoryException() {
         //Given
         //When && Then
-        Assertions.assertThrowsExactly(EmptyHistoryException.class, () -> historyService.showHistory(myAccount), BankMessage.EMPTY_HISTORY_MESSAGE);
+        Assertions.assertThrowsExactly(EmptyHistoryException.class, () -> historyService.showAllHistory(myAccount), BankMessage.EMPTY_HISTORY_MESSAGE);
     }
 
     @Test

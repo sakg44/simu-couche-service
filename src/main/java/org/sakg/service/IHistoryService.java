@@ -7,5 +7,5 @@ import org.sakg.model.Operation;
 public interface IHistoryService {
     void saveOperationAsHistory(Operation operation) throws HistoryServiceExeception;
 
-    void showHistory(Account account) throws HistoryServiceExeception;
+    void showAllHistory(Account account) throws HistoryServiceExeception;
 }

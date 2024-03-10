@@ -40,16 +40,16 @@ public class HistoryService implements IHistoryService {
         addHistory(operation.getAccount(), history);
     }
     private void addHistory(Account account, History history) {
-        account.getHistories().add(history);
+        account.getHistories().add(0,history);
     }
 
     @Override
-    public void showHistory(Account account) throws HistoryServiceExeception {
+    public void showAllHistory(Account account) throws HistoryServiceExeception {
         if (hasHistory(account)) {
             throw new EmptyHistoryException();
         }
-        logger.info(account.getHistories().toString());
-
+        logger.info("******* Voici l'historique de votre Compte *********");
+        account.getHistories().stream().map(History::toString).forEach(System.out::println);
     }
 
 }

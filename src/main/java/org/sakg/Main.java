@@ -18,9 +18,13 @@ public class Main {
 
         //******  Do transaction ********
         BankService.getInstance().doTransaction(depositOperation);
+        BankService.getInstance().doTransaction(depositOperation);
+        BankService.getInstance().doTransaction(depositOperation);
+        BankService.getInstance().doTransaction(depositOperation);
+
         BankService.getInstance().doTransaction(withdrawalOperation);
 
         //****** Show State
-        HistoryService.getInstance().showHistory(sakgAccount);
+        HistoryService.getInstance().showAllHistory(sakgAccount);
     }
 }
